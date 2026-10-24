@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SOB Console 2.0 - Final Report</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f5f0e8;padding:8px}
+.header{background:#4a1a1a;color:#fff;padding:10px 14px;border-radius:10px;display:flex;justify-content:space-between}
+.title{font-size:14px;font-weight:900;margin:12px 0 5px;color:#4a1a1a}
+.table-box{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.1);margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:#f8f3e6;padding:7px 4px;text-align:left;border-bottom:1px solid #ddd}
+td{padding:5px 4px;border-bottom:1px solid #eee}
+td input{width:50px;border:1px solid #ccc;border-radius:6px;padding:4px;text-align:center;font-size:12px}
+.total-row{background:#fff;font-weight:bold}
+.grand-row{background:#fbe9c2;font-weight:900}
+.footfall{background:linear-gradient(135deg,#1e5eff,#7c5cff);color:#fff;padding:10px;border-radius:10px;text-align:center;font-weight:900}
+.manual{background:#fff;padding:10px;border-radius:10px;margin:10px 0;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.manual h3{margin:0 0 8px;font-size:12px;color:#4a1a1a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid input{width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:8px;padding:8px;font-size:13px}
+.btns{display:flex;gap:6px;justify-content:center;margin:10px 0}
+.btns button{border:none;padding:9px 16px;border-radius:20px;font-weight:bold;color:#fff;font-size:12px;cursor:pointer}
+.gen{background:#0a7a1e} .copy{background:#1e5eff} .print{background:#ff6a00}
+.report{background:#fff;padding:12px;border-radius:10px;white-space:pre-wrap;font-family:monospace;font-size:12.5px;line-height:1.6;border:2px solid #ffb700}
+@media print{.no-print{display:none}}
+</style>
+</head>
+<body>
+<div class="header"><b>SOB Web Console 2.0</b><span style="font-size:11px" id="todayDate"></span></div>
 
+<div class="title">Footfall at Ticket Plaza</div>
+<div class="table-box">
+<table>
+<tr><th>Ticket Type</th><th>Adult</th><th>Child</th><th>Total</th></tr>
+<tr><td>PARK ENTRY</td><td><input type="number" id="pe_a" value="698"></td><td><input type="number" id="pe_c" value="219"></td><td id="pe_t">917</td></tr>
+<tr><td>PE + VG(280 Ft)</td><td><input type="number" id="pevg_a" value="411"></td><td><input type="number" id="pevg_c" value="258"></td><td id="pevg_t">669</td></tr>
+<tr><td>PE + VG + NAM</td><td><input type="number" id="pevgnam_a" value="81"></td><td><input type="number" id="pevgnam_c" value="5"></td><td id="pevgnam_t">86</td></tr>
+<tr><td>PE + NAM</td><td><input type="number" id="penam_a" value="15"></td><td><input type="number" id="penam_c" value="2"></td><td id="penam_t">17</td></tr>
+<tr><td>PE+VG+NAM+NAA</td><td><input type="number" id="pevgnaa_a" value="9"></td><td><input type="number" id="pevgnaa_c" value="1"></td><td id="pevgnaa_t">10</td></tr>
+<tr><td>PE+VG Express</td><td><input type="number" id="exp_a" value="3"></td><td><input type="number" id="exp_c" value="1"></td><td id="exp_t">4</td></tr>
+<tr><td>PE+VG(280Ft)</td><td><input type="number" id="pevg2_a" value="2"></td><td><input type="number" id="pevg2_c" value="1"></td><td id="pevg2_t">3</td></tr>
+<tr class="total-row"><td>TOTAL</td><td id="tp_at">1219</td><td id="tp_ct">487</td><td id="tp_gt">1706</td></tr>
+<tr class="grand-row"><td>GRAND TOTAL</td><td colspan="3" style="text-align:center" id="tp_grand">1706</td></tr>
+</table>
+</div>
+
+<div class="title">Footfall at Upgrade Counter</div>
+<div class="table-box">
+<table>
+<tr><th>Ticket Type</th><th>Adult</th><th>Child</th><th>Total</th></tr>
+<tr><td>PE+VG UPG from PE</td><td><input type="number" id="up1_a" value="39"></td><td><input type="number" id="up1_c" value="18"></td><td id="up1_t">57</td></tr>
+<tr><td>PE+VG+NAM UPG</td><td><input type="number" id="up2_a" value="3"></td><td><input type="number" id="up2_c" value="0"></td><td id="up2_t">3</td></tr>
+<tr><td>PE+VG+NAA UPG</td><td><input type="number" id="up3_a" value="2"></td><td><input type="number" id="up3_c" value="0"></td><td id="up3_t">2</td></tr>
+<tr class="total-row"><td>TOTAL</td><td id="up_at">44</td><td id="up_ct">18</td><td id="up_gt">62</td></tr>
+<tr class="grand-row"><td>GRAND TOTAL</td><td colspan="3" style="text-align:center" id="up_grand">62</td></tr>
+</table>
+</div>
+
+<div class="footfall">Ticket Plaza <span id="bar_tp">1706</span> + Upgrade <span id="bar_up">62</span> = FINAL <span id="bar_final">1768</span></div>
+
+<div class="manual no-print">
+<h3>📝 Manual Entry (Aap khud bharoge)</h3>
+<div class="grid">
+<div><label style="font-size:10px">NAM Undertaking Form</label><input type="number" id="nam_form" value="1"></div>
+<div><label style="font-size:10px">VG,NAA,NAM Form</label><input type="number" id="vgn_form" value="395"></div>
+<div><label style="font-size:10px">Loyalty Card</label><input type="number" id="loyalty" value="60"></div>
+<div><label style="font-size:10px">School Contact</label><input type="number" id="school" value="6"></div>
+<div><label style="font-size:10px">Google Review</label><input type="number" id="google" value="2"></div>
+<div><label style="font-size:10px">Video Feedback</label><input type="number" id="video" value="0"></div>
+<div><label style="font-size:10px">Trip Advisors</label><input type="number" id="trip" value="2"></div>
+</div>
+</div>
+
+<div class="btns no-print">
+<button class="gen" onclick="generate()">✅ Generate Report</button>
+<button class="copy" onclick="copyR()">📋 Copy</button>
+<button class="print" onclick="window.print()">🖨️ Print</button>
+</div>
+
+<div class="report" id="report"></div>
+
+<script>
+function n(id){return parseInt(document.getElementById(id).value)||0}
+function calc(){
+ let pe_a=n('pe_a'),pe_c=n('pe_c'),pevg_a=n('pevg_a'),pevg_c=n('pevg_c'),pevgnam_a=n('pevgnam_a'),pevgnam_c=n('pevgnam_c'),penam_a=n('penam_a'),penam_c=n('penam_c'),pevgnaa_a=n('pevgnaa_a'),pevgnaa_c=n('pevgnaa_c'),exp_a=n('exp_a'),exp_c=n('exp_c'),pevg2_a=n('pevg2_a'),pevg2_c=n('pevg2_c');
+ document.getElementById('pe_t').innerText=pe_a+pe_c;
+ document.getElementById('pevg_t').innerText=pevg_a+pevg_c;
+ document.getElementById('pevgnam_t').innerText=pevgnam_a+pevgnam_c;
+ document.getElementById('penam_t').innerText=penam_a+penam_c;
+ document.getElementById('pevgnaa_t').innerText=pevgnaa_a+pevgnaa_c;
+ document.getElementById('exp_t').innerText=exp_a+exp_c;
+ document.getElementById('pevg2_t').innerText=pevg2_a+pevg2_c;
+ let tp_at=pe_a+pevg_a+pevgnam_a+penam_a+pevgnaa_a+exp_a+pevg2_a;
+ let tp_ct=pe_c+pevg_c+pevgnam_c+penam_c+pevgnaa_c+exp_c+pevg2_c;
+ let tp_gt=tp_at+tp_ct;
+ document.getElementById('tp_at').innerText=tp_at;document.getElementById('tp_ct').innerText=tp_ct;document.getElementById('tp_gt').innerText=tp_gt;document.getElementById('tp_grand').innerText=tp_gt;
+ let up1_a=n('up1_a'),up1_c=n('up1_c'),up2_a=n('up2_a'),up2_c=n('up2_c'),up3_a=n('up3_a'),up3_c=n('up3_c');
+ document.getElementById('up1_t').innerText=up1_a+up1_c;document.getElementById('up2_t').innerText=up2_a+up2_c;document.getElementById('up3_t').innerText=up3_a+up3_c;
+ let up_at=up1_a+up2_a+up3_a;let up_ct=up1_c+up2_c+up3_c;let up_gt=up_at+up_ct;
+ document.getElementById('up_at').innerText=up_at;document.getElementById('up_ct').innerText=up_ct;document.getElementById('up_gt').innerText=up_gt;document.getElementById('up_grand').innerText=up_gt;
+ document.getElementById('bar_tp').innerText=tp_gt;document.getElementById('bar_up').innerText=up_gt;document.getElementById('bar_final').innerText=tp_gt+up_gt;
+ return {tp_at,tp_ct,tp_gt,up_at,up_ct,up_gt,pe_a,pe_c,pevg_a,pevg_c,penam_a,penam_c,pevgnam_a,pevgnam_c,pevgnaa_a,pevgnaa_c,exp_a,exp_c}
+}
+document.querySelectorAll('input').forEach(e=>e.addEventListener('input',()=>{calc();generate();}));
+function generate(){
+ let d=calc();
+ let now=new Date();
+ let days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+ let dayName=days[now.getDay()];
+ let dd=String(now.getDate()).padStart(2,'0'),mm=String(now.getMonth()+1).padStart(2,'0'),yy=now.getFullYear();
+ document.getElementById('todayDate').innerText=`${dd}-${mm}-${yy} ${dayName}`;
+ let nam_form=n('nam_form'),vgn_form=n('vgn_form'),loyalty=n('loyalty'),school=n('school'),google=n('google'),video=n('video'),trip=n('trip');
+ let report=`*Today's Operations Summary for ${dayName}  ${dd}/${mm}/${yy}*
+
+Park Entry( *PE* ) = *${d.pe_a+d.pe_c}*
+
+Viewing Gallery ( *VG* ) = *${d.pevg_a+d.pevg_c}*
+
+PE + Nij Aatma Manthan ( *NAM* ) = *${d.penam_a+d.penam_c}*
+
+PE + VG + NAM = *${d.pevgnam_a+d.pevgnam_c}*
+
+VG + Nij Aatma Abhishek ( *NAA* ) = *${d.pevgnaa_a+d.pevgnaa_c}*
+
+VG + NAM + NAA = *${d.pevgnaa_a+d.pevgnaa_c}*
+
+VG Express = *${d.exp_a+d.exp_c}*
+
+_Total Footfall = *${d.tp_gt+d.up_gt}*_
+
+* NAM Undertaking Form = *${nam_form}* (Including below 4-year-old kids)
+
+* VG, NAA, NAM Undertaking form = *${vgn_form}* (Including below 4-year-old kids)
+
+Total Loyalty Card = *${loyalty}*
+
+(*Total School Contact* *${school}*
+
+Google Review = *${google}*
+
+Total Video Feedback = *${video}*
+
+Total Trip Advisors = *${trip}*`;
+ document.getElementById('report').innerText=report;
+}
+function copyR(){navigator.clipboard.writeText(document.getElementById('report').innerText).then(()=>alert('Report Copy ho gayi! WhatsApp pe paste karo'));}
+calc();generate();
+</script>
+</body>
+</html>
